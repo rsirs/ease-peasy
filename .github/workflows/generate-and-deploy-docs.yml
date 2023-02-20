@@ -33,7 +33,6 @@ jobs:
               run: |
                   git checkout --orphan gh-pages
                   git rm -rf .
-                  cp -r ./docs/* .
                   git add .
                   git commit -m "docs(docs): update documentation"
                   git push --force origin gh-pages
