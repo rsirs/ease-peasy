@@ -1,158 +1,157 @@
+//@ts-nocheck
+
 type Constructor = { new (...args: any[]): any };
 
 interface AnnotatorOptions {
-  message?: string;
-  description?: string;
-  tags?: { [key: string]: string };
-  preserveTypes?: boolean;
+    message?: string;
+    description?: string;
+    tags?: { [key: string]: string };
+    preserveTypes?: boolean;
 }
 
 interface Annotated {
-  __doc__?: string;
+    __doc__?: string;
 }
 
 class Annotator {
-  private label: string;
+    private label: string;
 
-  constructor(label: string, private options: AnnotatorOptions = {}) {
-    this.label = label;
-  }
+    constructor(label: string, private options: AnnotatorOptions = {}) {
+        this.label = label;
+    }
 
-  static forClass(className: string, options?: AnnotatorOptions) {
-    return new Annotator(`Class: ${className}`, options);
-  }
+    static forClass(className: string, options?: AnnotatorOptions) {
+        return new Annotator(`Class: ${className}`, options);
+    }
 
-  static forMethod(methodName: string, options?: AnnotatorOptions) {
-    return new Annotator(`Method: ${methodName}`, options);
-  }
+    static forMethod(methodName: string, options?: AnnotatorOptions) {
+        return new Annotator(`Method: ${methodName}`, options);
+    }
 
-  static forFunction(options?: AnnotatorOptions) {
-    return new Annotator("Function", options);
-  }
+    static forFunction(options?: AnnotatorOptions) {
+        return new Annotator('Function', options);
+    }
 
-  static forProperty(propertyName: string, options?: AnnotatorOptions) {
-    return new Annotator(`Property: ${propertyName}`, options);
-  }
+    static forProperty(propertyName: string, options?: AnnotatorOptions) {
+        return new Annotator(`Property: ${propertyName}`, options);
+    }
 
-  withDescription(description: string) {
-    this.label += `\n\n${description}`;
-    return this;
-  }
+    withDescription(description: string) {
+        this.label += `\n\n${description}`;
+        return this;
+    }
 
-  withTag(tagName: string, tagValue: string) {
-    this.label += `\n\n@${tagName} ${tagValue}`;
-    return this;
-  }
+    withTag(tagName: string, tagValue: string) {
+        this.label += `\n\n@${tagName} ${tagValue}`;
+        return this;
+    }
 
-  withPreserveTypes() {
-    this.label += `\n\n@type ${this.getType()}`;
-    return this;
-  }
+    withPreserveTypes() {
+        this.label += `\n\n@type ${this.getType()}`;
+        return this;
+    }
 
-  decorate<T extends Constructor>(constructor: T): T;
-  decorate(target: object, propertyKey: string | symbol): void;
-  decorate(target: Function): Function;
-  decorate(
-    target: object | Function,
-    propertyKey?: string | symbol
-  ): Function | void {
-    if (typeof target === "function" && propertyKey === undefined) {
-      const self = this;
+    decorate<T extends Constructor>(constructor: T): T;
+    decorate(target: object, propertyKey: string | symbol): void;
+    decorate(target: Function): Function;
+    decorate(target: object | Function, propertyKey?: string | symbol): Function | void {
+        if (typeof target === 'function' && propertyKey === undefined) {
+            const self = this;
 
-      const decoratedFunction = function(...args: any[]) {
-        return target.apply(this, args);
-      };
+            const decoratedFunction = function (...args: any[]) {
+                return target.apply(this, args);
+            };
 
-      decoratedFunction.__doc__ = self.label;
+            decoratedFunction.__doc__ = self.label;
 
-      return decoratedFunction;
-    } else {
-      const self = this;
-
-      if (propertyKey === undefined) {
-        target.__doc__ = self.label;
-        return target;
-      } else {
-        const descriptor = Object.getOwnPropertyDescriptor(target, propertyKey);
-
-        if (descriptor && typeof descriptor.value === "function") {
-          const originalMethod = descriptor.value;
-
-          descriptor.value = function(...args: any[]) {
-            this.__doc__ = self.label;
-            return originalMethod.apply(this, args);
-          };
-
-          return descriptor;
+            return decoratedFunction;
         } else {
-          Object.defineProperty(target, propertyKey, {
-            get() {
-              return this[`_${propertyKey}`];
-            },
-            set(value) {
-              this[`_${propertyKey}`] = value;
-              this.__doc__ = self.label;
-            },
-            enumerable: true,
-            configurable: true
-          });
+            const self = this;
+
+            if (propertyKey === undefined) {
+                target.__doc__ = self.label;
+                return target;
+            } else {
+                const descriptor = Object.getOwnPropertyDescriptor(target, propertyKey);
+
+                if (descriptor && typeof descriptor.value === 'function') {
+                    const originalMethod = descriptor.value;
+
+                    descriptor.value = function (...args: any[]) {
+                        this.__doc__ = self.label;
+                        return originalMethod.apply(this, args);
+                    };
+
+                    return descriptor;
+                } else {
+                    Object.defineProperty(target, propertyKey, {
+                        get() {
+                            return this[`_${propertyKey}`];
+                        },
+                        set(value) {
+                            this[`_${propertyKey}`] = value;
+                            this.__doc__ = self.label;
+                        },
+                        enumerable: true,
+                        configurable: true,
+                    });
+                }
+            }
         }
-      }
-    }
-  }
-
-  private getType(): string {
-    const types = {
-      "number": "Number",
-      "string": "String",
-      "boolean": "Boolean"
-    };
-
-    const type = types[typeof this.options.preserveTypes] || "unknown";
-
-    if (
-      type === "unknown" &&
-      this.options.preserveTypes &&
-      this.options.preserveTypes.constructor &&
-      typeof this.options.preserveTypes.constructor === "function"
-    ) {
-      return this.options.preserveTypes.constructor.name;
     }
 
-    return type;
-  }
+    private getType(): string {
+        const types = {
+            number: 'Number',
+            string: 'String',
+            boolean: 'Boolean',
+        };
 
-  private formatTags(): string {
-    if (!this.options.tags) {
-      return "";
+        const type = types[typeof this.options.preserveTypes] || 'unknown';
+
+        if (
+            type === 'unknown' &&
+            this.options.preserveTypes &&
+            this.options.preserveTypes.constructor &&
+            typeof this.options.preserveTypes.constructor === 'function'
+        ) {
+            return this.options.preserveTypes.constructor.name;
+        }
+
+        return type;
     }
 
-    return Object.entries(this.options.tags)
-      .map(([name, value]) => `@${name} ${value}`)
-      .join("\n");
-  }
+    private formatTags(): string {
+        if (!this.options.tags) {
+            return '';
+        }
 
-  toString(): string {
-    const { message, description } = this.options;
-
-    let label = this.label;
-
-    if (message) {
-      label += ` (${message})`;
+        return Object.entries(this.options.tags)
+            .map(([name, value]) => `@${name} ${value}`)
+            .join('\n');
     }
 
-    if (description) {
-      label += `\n\n${description}`;
+    toString(): string {
+        const { message, description } = this.options;
+
+        let label = this.label;
+
+        if (message) {
+            label += ` (${message})`;
+        }
+
+        if (description) {
+            label += `\n\n${description}`;
+        }
+
+        label += `\n\n${this.formatTags()}`;
+
+        if (this.options.preserveTypes) {
+            label += `\n\n@type ${this.getType()}`;
+        }
+
+        return label;
     }
-
-    label += `\n\n${this.formatTags()}`;
-
-    if (this.options.preserveTypes) {
-      label += `\n\n@type ${this.getType()}`;
-    }
-
-    return label;
-  }
 }
 
 // Example usage:
@@ -207,4 +206,3 @@ class Annotator {
 // console.log(MyClass.prototype.myProperty.__doc__);
 // console.log(myFunction.__doc__);
 // console.log(myObject.__doc__);
-

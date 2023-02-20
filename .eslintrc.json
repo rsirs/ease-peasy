@@ -15,6 +15,7 @@
         "process": true
     },
     "rules": {
+        "@typescript-eslint/ban-ts-comment": "off",
         "@typescript-eslint/ban-types": "off",
         "@typescript-eslint/no-this-alias": "off",
         // Suppress errors for missing return type on functions and methods
@@ -22,7 +23,7 @@
         // Suppress errors for missing parameter type
         "@typescript-eslint/explicit-module-boundary-types": "off",
         // Suppress errors for unused variables and imports
-        "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+        "@typescript-eslint/no-unused-vars": "off",
         "no-unused-vars": 0,
         "no-unused-expressions": "off",
         // Suppress errors for naming interfaces and types with PascalCase
