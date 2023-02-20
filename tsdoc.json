@@ -1,0 +1,6 @@
+{
+    "extends": "./jsdoc.json",
+    "typescript": {
+        "includeDeclarations": true
+    }
+}

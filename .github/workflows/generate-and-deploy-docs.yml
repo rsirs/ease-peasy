@@ -1,0 +1,45 @@
+name: Generate and deploy docs to gh-pages
+
+on:
+    push:
+        branches:
+            - develop
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v2
+              with:
+                  ref: ${{ github.ref }}
+
+            - name: Install dependencies
+              run: |
+                  npm install
+                  npm install --global jsdoc tsd-jsdoc
+
+            - name: Generate documentation
+              run: |
+                  npm run docs:js && npm run docs:ts
+
+            - name: Configure Git
+              run: |
+                  git config --global user.email ${{ secrets.EMAIL }}
+                  git config --global user.name ${{ secrets.USERNAME }}
+
+            - name: Publish to gh-pages
+              run: |
+                  git checkout --orphan gh-pages
+                  git rm -rf .
+                  cp -r ./docs/* .
+                  git add .
+                  git commit -m "docs(docs): update documentation"
+                  git push --force origin gh-pages
+                  git checkout -
+
+            - name: Check for errors
+              if: ${{ job.status != 'success' }}
+              run: |
+                  echo "Documentation generation or deployment failed! Please check the logs for more information."

@@ -1,0 +1,27 @@
+{
+    "editor.formatOnSave": true,
+"editor.defaultFormatter": "esbenp.prettier-vscode",
+// Use TypeScript version specified in tsconfig.json:
+"typescript.tsdk": "node_modules/typescript/lib",
+// Show errors and warnings in the problems panel:
+"typescript.validate.enable": true,
+"typescript.validate.enableSemanticDiagnostics": true,
+"typescript.validate.enableSyntaxDiagnostics": true,
+// Configure TypeScript compiler options:
+// "typescript.compilerOptions.experimentalDecorators": true,
+// "typescript.compilerOptions.module": "esnext",
+// "typescript.compilerOptions.target": "es6",
+// "typescript.compilerOptions.importHelpers": true
+// Use ESLint for linting:
+"eslint.enable": true,
+"eslint.validate": [
+  "javascript",
+  "typescript"
+],
+"editor.codeActionsOnSave": {
+  "source.fixAll": true,
+  "source.fixAll.eslint": true,
+},
+// Use Prettier for formatting:
+"prettier.eslintIntegration": true,
+}

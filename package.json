@@ -1,0 +1,36 @@
+{
+    "name": "ease-peasy",
+    "version": "1.0.0",
+    "description": "Framework for web components",
+    "main": "index.js",
+    "scripts": {
+        "docs:js": "jsdoc -c jsdoc.json",
+        "docs:ts": "tsd-jsdoc -c tsdoc.json",
+        "docs:publish": "git branch -D gh-pages; git checkout -b gh-pages; git add -f docs; git commit -m 'docs(docs): update documentation'; git push origin gh-pages --force; git checkout -",
+        "start": "NODE_ENV=development esbuild --config=esbuild.config.js",
+        "build": "NODE_ENV=production esbuild --config=esbuild.node.config.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/rsirs/ease-peasy.git"
+    },
+    "keywords": [
+        "framework",
+        "easy-peasy"
+    ],
+    "author": "Rajasekhar",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/rsirs/ease-peasy/issues"
+    },
+    "homepage": "https://github.com/rsirs/ease-peasy#readme",
+    "devDependencies": {
+        "@typescript-eslint/eslint-plugin": "^5.52.0",
+        "@typescript-eslint/parser": "^5.52.0",
+        "esbuild": "^0.17.9",
+        "eslint": "^8.34.0",
+        "jsdoc": "^3.6.11",
+        "prettier": "^2.8.4",
+        "tsd-jsdoc": "^2.5.0"
+    }
+}
