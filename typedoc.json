@@ -1,7 +1,7 @@
 {
     "out": "./docs/js",
-    "exclude": ["**/node_modules/**/*.*", "**/test/**/*.*", "**/build/**/*.*", "**/*.spec.ts"],
-    "externalPattern": ["**/node_modules/**/*.*", "**/test/**/*.*", "**/build/**/*.*", "**/*.spec.ts"],
+    "exclude": ["**/*+(e2e|spec).ts"],
+    "externalPattern": ["**/node_modules/**"],
     "tsconfig": "tsconfig.json",
     "treatWarningsAsErrors": false,
     "searchInComments": true,
