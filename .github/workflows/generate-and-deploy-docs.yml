@@ -37,7 +37,6 @@ jobs:
                   git add .
                   git commit -m "docs(docs): update documentation"
                   git push --force origin gh-pages
-                  git checkout -
 
             - name: Check for errors
               if: ${{ job.status != 'success' }}
