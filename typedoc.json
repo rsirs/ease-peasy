@@ -1,10 +1,13 @@
 {
     "out": "./docs/ts",
-    "exclude": ["**/node_modules/**/*.*", "**/test/**/*.*", "**/build/**/*.*", "**/*.spec.ts"],
+    "excludePattern": ["**/node_modules/**/*.*", "**/test/**/*.*", "**/build/**/*.*", "**/*.spec.ts"],
     "tsconfig": "tsconfig.json",
     "treatWarningsAsErrors": false,
     "searchInComments": true,
     "theme": "default",
     "lightHighlightTheme": "light-plus",
-    "darkHighlightTheme": "dark-plus"
+    "darkHighlightTheme": "dark-plus",
+    "excludeExternals": true,
+    "excludeInternal": false,
+    "skipErrorChecking": true
 }
