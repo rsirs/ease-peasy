@@ -7,7 +7,7 @@
         "docs:js": "jsdoc -c jsdoc.json",
         "docs:ts": "typedoc --options ./typedoc.base.json",
         "docs:md": "typedoc --options ./typedoc.md.json",
-        "docs:publish": "git branch -D gh-pages; git checkout -b gh-pages; git checkout --orphan gh-pages; git rm -rf .; cp -r ./docs/* .; git add .; git commit -m 'docs(docs): update documentation';git push --force origin gh-pages; git checkout -",
+        "docs:publish": "git branch -D gh-pages; git checkout -b gh-pages; git checkout --orphan gh-pages; git rm -rf .; cp -r ./docs/* ./docs/; git add .; git commit -m 'docs(docs): update documentation';git push --force origin gh-pages; git checkout -",
         "start": "NODE_ENV=development esbuild --config=esbuild.config.js",
         "build": "NODE_ENV=production esbuild --config=esbuild.node.config.js"
     },
