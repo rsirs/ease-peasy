@@ -1,19 +1,19 @@
 //@ts-nocheck
 
-type Constructor = { new (...args: any[]): any };
+export type Constructor = { new (...args: any[]): any };
 
-interface AnnotatorOptions {
+export interface AnnotatorOptions {
     message?: string;
     description?: string;
     tags?: { [key: string]: string };
     preserveTypes?: boolean;
 }
 
-interface Annotated {
+export interface Annotated {
     __doc__?: string;
 }
 
-class Annotator {
+export class Annotator {
     private label: string;
 
     constructor(label: string, private options: AnnotatorOptions = {}) {
