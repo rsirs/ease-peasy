@@ -1,6 +1,6 @@
 {
     "out": "./docs/js",
-    "exclude": ["**/*+(e2e|spec).ts"],
+    "exclude": ["**/*+(e2e|spec).ts", "**/node_modules/**/*"],
     "externalPattern": ["**/node_modules/**"],
     "tsconfig": "tsconfig.json",
     "treatWarningsAsErrors": false,
