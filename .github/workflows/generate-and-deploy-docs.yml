@@ -18,11 +18,11 @@ jobs:
             - name: Install dependencies
               run: |
                   npm install
-                  npm install --global jsdoc typedoc
+                  npm install --global jsdoc typedoc typedoc-plugin-markdown
 
             - name: Generate documentation
               run: |
-                  npm run docs:js && npm run docs:ts
+                  npm run docs:js && npm run docs:ts && npm run docs:md
 
             - name: Configure Git
               run: |
@@ -30,12 +30,7 @@ jobs:
                   git config --global user.name ${{ secrets.USERNAME }}
 
             - name: Publish to gh-pages
-              run: |
-                  git checkout --orphan gh-pages
-                  git rm -rf .
-                  git add .
-                  git commit -m "docs(docs): update documentation"
-                  git push --force origin gh-pages
+              run: npm run docs:publish
 
             - name: Check for errors
               if: ${{ job.status != 'success' }}
