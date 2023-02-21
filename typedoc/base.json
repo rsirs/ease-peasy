@@ -12,5 +12,6 @@
     "excludeInternal": false,
     "skipErrorChecking": true,
     "categorizeByGroup": true,
-    "plugin": []
+    "plugin": [],
+    "entry": ["src"]
 }
