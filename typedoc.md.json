@@ -1,5 +1,0 @@
-{
-    "extends": ["./typedoc.base.json"],
-    "out": "documentation/md",
-    "plugin": ["typedoc-plugin-markdown"]
-}
