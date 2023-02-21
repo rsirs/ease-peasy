@@ -1,8 +1,9 @@
 {
+    "basePath": "../",
     "out": "./docs/js",
     "exclude": ["**/*+(e2e|spec).ts", "**/node_modules/**/*"],
     "externalPattern": ["**/node_modules/**"],
-    "tsconfig": "../tsconfig.json",
+    "tsconfig": "tsconfig.json",
     "treatWarningsAsErrors": false,
     "searchInComments": true,
     "theme": "default",
