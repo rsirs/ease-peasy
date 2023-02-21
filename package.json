@@ -5,8 +5,8 @@
     "main": "index.js",
     "scripts": {
         "docs:js": "jsdoc -c jsdoc.json",
-        "docs:ts": "typedoc --options typedoc.json",
-        "docs:md": "typedoc --plugin typedoc-plugin-markdown --options typedoc.json",
+        "docs:ts": "typedoc --options ./typedoc/base.json",
+        "docs:md": "typedoc --options ./typedoc/md.json",
         "docs:publish": "git branch -D gh-pages; git checkout -b gh-pages; git add -f docs; git commit -m 'docs(docs): update documentation'; git push origin gh-pages --force; git checkout -",
         "start": "NODE_ENV=development esbuild --config=esbuild.config.js",
         "build": "NODE_ENV=production esbuild --config=esbuild.node.config.js"

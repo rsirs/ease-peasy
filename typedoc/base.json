@@ -11,6 +11,6 @@
     "excludeExternals": true,
     "excludeInternal": false,
     "skipErrorChecking": true,
-    "entryPoints": ["src"],
-    "categorizeByGroup": true
+    "categorizeByGroup": true,
+    "plugin": []
 }
